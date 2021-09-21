@@ -1,0 +1,28 @@
+#Reading from various datasources
+import pandas as pd
+filepath = "file.csv"
+df = pd.read_csv(filepath
+print(df.iloc[:5],sep=',',delim_whitespace='True',header='None',names=['colname1','colname2'],na_values=['NA',99])
+
+#Reading JSON File
+data = pd.read_json(filename)
+data.to_json('output.json')
+
+#Reading SQL Data
+import sqlite3 as sq3
+import pandas as pd
+path= '/data/rock.db'
+con = sq3.Connection(path)
+query = ''' select * from songs '''
+data = pd.read_sql(query, con)
+
+#Reading NOSQL DB ,e.g. mongodb
+from pymongo import MongoClient
+con =MongoClient()
+db = con.database_name()
+cursor = db.collection_name.find(query)  -- query should be replaced with string or {} to select all
+df =pd.dataframe(list(cursor))
+
+#API and cloud data access
+data_url="www...."
+df  = pd.read_csv(data_url,header=None)
