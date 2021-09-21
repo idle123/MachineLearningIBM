@@ -26,3 +26,20 @@ df =pd.dataframe(list(cursor))
 #API and cloud data access
 data_url="www...."
 df  = pd.read_csv(data_url,header=None)
+
+#Finding residual via plots
+sns.distplot(data,bins=20);
+sns.boxplot(data)  -- idea is outliers will be outside box
+
+import numpy as mp
+#calculate interquartile range
+q25,q50,q75 = np.percentile(data,[25,50,75])
+iqr = q75 - q25
+
+#calculate the min max limits to be considered an outlier
+min = q25 - 1.5*(iqr)
+max = q75 + 1.5*(iqr)
+print(min,q25,q50,q75,max)
+
+#identify the points
+[x for x in data[`unemplyment] if x> max ]
